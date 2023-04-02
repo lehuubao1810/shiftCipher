@@ -32,6 +32,7 @@ function App() {
     let result = ''
     for (let i = 0; i < shiftEnText.length; i++) {
       let char = shiftEnText.charCodeAt(i)
+      console.log(char)
       let temptEn = (char + shiftEnKey) % 127
       if (temptEn < 32) {
         result += String.fromCharCode(temptEn + 32)
@@ -39,13 +40,13 @@ function App() {
         result += String.fromCharCode(temptEn)
       }
       //
-      // let tempt = ((char + shiftEnKey) + 32) % 127
+      // let tempt = ((char + shiftEnKey) % 95 ) + 32
+      // console.log(tempt)
       // console.log(`${i}: ${char} - ${shiftEnKey} - ${tempt} - ${String.fromCharCode(((char + shiftEnKey) + 32) % 127)} - ${result}`)
     }
     setShiftEnResult(result)
-    // console.log(shiftEnKey)
-    // console.log(shiftEnText)
-    // console.log(result.charCodeAt(0))
+
+    console.log(result.charCodeAt(0))
   }
   // Shift Cipher Decryption
   const handleBtnDecrypt = () => {
@@ -62,12 +63,14 @@ function App() {
     let result = ''
     for (let i = 0; i < shiftDeText.length; i++) {
       let char = shiftDeText.charCodeAt(i)
+      console.log(char)
       let temptDe = (char - shiftDeKey) % 127
   
+      if (temptDe < 0) {
+        temptDe += 127
+      }
       if (temptDe < 32) {
-        let tempt = ((((char - shiftDeKey - 32) % 127) + 127) % 127)
-        result += String.fromCharCode(tempt)
-        // console.log("tempt:" + tempt)
+        result += String.fromCharCode(127 - (32 - temptDe))
       } else {
         result += String.fromCharCode(temptDe)
       }
@@ -75,20 +78,24 @@ function App() {
     setShiftDeResult(result)
     // console.log(shiftDeKey)
     // console.log(shiftDeText)
-    // console.log(result.charCodeAt(0))
+    console.log(result.charCodeAt(0))
   }
   // Don't have key
   const handleDecryptNoKey = () => {
     const all_results = []
     const opt_results = []
-    for (let i = 0; i < 127; i++) {
+    for (let i = 0; i < 95; i++) {
       let result = ''
       for (let j = 0; j < shiftDeText.length; j++) {
         let char = shiftDeText.charCodeAt(j)
         // result += String.fromCharCode((char - i) % 127)
         let temptDe = (char - i) % 127
+
+        if (temptDe < 0) {
+          temptDe += 127
+        }
         if (temptDe < 32) {
-          result += String.fromCharCode(((((char - i - 32) % 127) + 127) % 127))
+          result += String.fromCharCode(127 - (32 - temptDe))
         } else {
           result += String.fromCharCode(temptDe)
         }
