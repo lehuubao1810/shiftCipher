@@ -22,7 +22,7 @@ function App() {
   const [shiftDeResult, setShiftDeResult] = useState('')
 
   const [statusModalDe, setStatusModalDe] = useState(false)
-  
+
   const [allDeResult, setAllDeResult] = useState(['']) // all result
   const [optDeResult, setOptDeResult] = useState(['']) // optimal result
 
@@ -32,16 +32,20 @@ function App() {
     let result = ''
     for (let i = 0; i < shiftEnText.length; i++) {
       let char = shiftEnText.charCodeAt(i)
-      result += String.fromCharCode((char + shiftEnKey) % 256)
+      let temptEn = (char + shiftEnKey) % 127
+      if (temptEn < 32) {
+        result += String.fromCharCode(temptEn + 32)
+      } else {
+        result += String.fromCharCode(temptEn)
+      }
       //
-      // let tempt = (char + shiftEnKey) % 256
-      // console.log(`${i}: ${char} - ${shiftEnKey} - ${tempt} - ${String.fromCharCode((char + shiftEnKey) % 256)} - ${result}`)
+      // let tempt = ((char + shiftEnKey) + 32) % 127
+      // console.log(`${i}: ${char} - ${shiftEnKey} - ${tempt} - ${String.fromCharCode(((char + shiftEnKey) + 32) % 127)} - ${result}`)
     }
     setShiftEnResult(result)
     // console.log(shiftEnKey)
     // console.log(shiftEnText)
-
-    // console.log(result)
+    // console.log(result.charCodeAt(0))
   }
   // Shift Cipher Decryption
   const handleBtnDecrypt = () => {
@@ -58,22 +62,36 @@ function App() {
     let result = ''
     for (let i = 0; i < shiftDeText.length; i++) {
       let char = shiftDeText.charCodeAt(i)
-      result += String.fromCharCode((char - shiftDeKey) % 256)
+      let temptDe = (char - shiftDeKey) % 127
+  
+      if (temptDe < 32) {
+        let tempt = ((((char - shiftDeKey - 32) % 127) + 127) % 127)
+        result += String.fromCharCode(tempt)
+        // console.log("tempt:" + tempt)
+      } else {
+        result += String.fromCharCode(temptDe)
+      }
     }
     setShiftDeResult(result)
     // console.log(shiftDeKey)
     // console.log(shiftDeText)
-    // console.log(result)
+    // console.log(result.charCodeAt(0))
   }
   // Don't have key
   const handleDecryptNoKey = () => {
     const all_results = []
     const opt_results = []
-    for (let i = 0; i < 256; i++) {
+    for (let i = 0; i < 127; i++) {
       let result = ''
       for (let j = 0; j < shiftDeText.length; j++) {
         let char = shiftDeText.charCodeAt(j)
-        result += String.fromCharCode((char - i) % 256)
+        // result += String.fromCharCode((char - i) % 127)
+        let temptDe = (char - i) % 127
+        if (temptDe < 32) {
+          result += String.fromCharCode(((((char - i - 32) % 127) + 127) % 127))
+        } else {
+          result += String.fromCharCode(temptDe)
+        }
       }
       all_results.push(
         {
@@ -89,7 +107,7 @@ function App() {
           }
         )
       }
-      
+
     }
     setAllDeResult(all_results)
     setOptDeResult(opt_results)
@@ -161,10 +179,10 @@ function App() {
       <div className="ascii">ASCII</div>
       {
         statusModalDe &&
-        <ModalDecrypt 
-          allDeResult = {allDeResult}
-          optDeResult = {optDeResult}
-          setStatusModalDe = {setStatusModalDe}
+        <ModalDecrypt
+          allDeResult={allDeResult}
+          optDeResult={optDeResult}
+          setStatusModalDe={setStatusModalDe}
         />
       }
       <div className="main">
@@ -179,7 +197,7 @@ function App() {
             <InputShift
               setValue={setShiftEnKey}
               value={shiftEnKey}
-              disabled = {false}
+              disabled={false}
             />
             <Button
               handle={handleEncrypt}
@@ -204,13 +222,13 @@ function App() {
             <InputShift
               setValue={setShiftDeKey}
               value={shiftDeKey}
-              disabled = {!statusDeKey}
+              disabled={!statusDeKey}
             />
             <input
               type="checkbox"
               onChange={handleCheckKey}
               className="checkKey"
-              checked = {statusDeKey}
+              checked={statusDeKey}
             ></input>
             <Button
               handle={handleBtnDecrypt}
