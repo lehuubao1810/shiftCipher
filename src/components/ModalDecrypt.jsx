@@ -58,7 +58,7 @@ function ModalDecrypt(props) {
                   {result.result}
                 </div>
                 <div className="btn">
-                  <CopyToClipboard text={result}/>
+                  <CopyToClipboard text={result.result}/>
                   <span className="key">
                     Key: {result.key}
                   </span>
