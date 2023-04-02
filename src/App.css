@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Space Mono', monospace;
+  color : #302d24;
+}
+
+.App {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  position: relative;
+}
+.title {
+  padding: 14px 250px;
+  background-color: #fcf5e8;
+  border: 3px solid #302D24;
+  border-radius: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  box-shadow: 5px 5px 0 #302D24;
+  margin-bottom: 20px;
+}
+.ascii {
+  font-size: 22px;
+  font-weight: bold;
+  /* margin-bottom: 20px; */
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  padding: 20px 100px;
+  justify-content: space-between;
+}
+.line {
+  width: 5px;
+  height: 100%;
+  background-color: #302D24;
+}
+
+.main .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+
+.sub_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.inputText {
+  width: 100%;
+  height: 140px;
+  padding: 15px;
+  background-color: #fcf5e8;
+  border: 3px solid #302D24;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 5px 5px 0 #302D24;
+  margin-bottom: 20px;
+  resize: none;
+  transition: all 0.2s ease-in-out;
+}
+.inputText:focus {
+  outline: none;
+  box-shadow: none;
+  transform: translate(5px, 5px);
+}
+
+.inputShift {
+  width: 30%;
+  height: 50px;
+  padding: 15px;
+  background-color: #fcf5e8;
+  border: 3px solid #302D24;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #302D24;
+  resize: none;
+  transition: all 0.2s ease-in-out;
+}
+.inputShift:focus {
+  outline: none;
+  box-shadow: none;
+  transform: translate(4px, 4px);
+}
+
+.col .btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.button {
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  border: 3px solid #302D24;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #302D24;
+  text-align: center;
+  line-height: 45px;
+  transition: all 0.2s ease-in-out;
+  font-size: 14px;
+
+  /* prohibit highlight word */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome and Opera */
+  
+}
+.btnEncrypt {
+  background-color: #9cf3b6;
+}
+.btnDecrypt {
+  background-color: #feab97;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.checkKey {
+  width: 40px;
+  cursor: pointer;
+  height: 40px;
+  margin: auto 0;
+  border: 2px solid #302D24;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 #302D24;
+  appearance: none;
+  transition: all 0.2s ease-in-out;
+}
+.checkKey:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
+}
+.checkKey:checked {
+  background-color: #66ca84
+}
+
+.result {
+  position: relative;
+  width: 100%;
+  word-wrap: break-word;
+  min-height: 140px;
+  height: auto;
+  padding: 15px 50px 15px 15px;
+  background-color: #fcf5e8;
+  border: 3px solid #302D24;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #302D24;
+  margin-bottom: 20px;
+  font-size: 14px;
+    
+}
+
+.btnCopy {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  /* prohibit highlight word */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome and Opera */
+}
+.btnCopy:hover {
+  opacity: 0.9;
+}
+.btnCopy:active {
+  color: #66ca84;
+}
+
+/* Modal descrypt */
+.modalDe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.contentModal {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 450px;
+  padding: 15px;
+  background-color: #fcf5e8;
+  border: 3px solid #302D24;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #302D24;
+  margin-bottom: 20px;
+}
+.contentModal .btn {
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+.results {
+  overflow-y: scroll;
+  padding-right: 10px;
+  height: 100%;
+}
+.results::-webkit-scrollbar {
+  display: none;
+}
+
+.resultItem {
+  width: 100%;
+  padding: 15px 50px 15px 15px;
+  background-color: #fcf5e8;
+  border: 3px solid #302D24;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #302D24;
+  margin-bottom: 20px;
+  font-size: 14px;
+  position: relative;
+}
+.resultItem .btn {
+  margin: 0;
+}
+
+.btn .active {
+  background-color: #66ca84;
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
