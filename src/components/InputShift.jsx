@@ -8,7 +8,11 @@ function InputShift(props) {
     const handleChange = (e) => {
         if (e.target.value === '') {
             props.setValue(0)
-        } else {
+        } 
+        else if (e.target.value > 94) {
+            props.setValue(94)
+        }
+        else {
             props.setValue(parseInt(e.target.value))
         }
     }
@@ -28,6 +32,7 @@ function InputShift(props) {
             value={props.value}
             onChange={e => handleChange(e)}
             disabled = {props.disabled}
+            max={94}
         />
     )
 }
