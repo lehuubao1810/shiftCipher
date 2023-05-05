@@ -30,9 +30,14 @@ function App() {
   // Shift Cipher Encryption
   const handleEncrypt = () => {
     let result = ''
+    let key = shiftEnKey
+    if (key > 95) {
+      key = key % 95
+    }
+
     for (let i = 0; i < shiftEnText.length; i++) {
       let char = shiftEnText.charCodeAt(i)
-      result += String.fromCharCode((char - 32 + shiftEnKey) % 95 + 32);
+      result += String.fromCharCode((char - 32 + key) % 95 + 32);
     }
     setShiftEnResult(result)
 
@@ -51,15 +56,18 @@ function App() {
   // Have key
   const handleDecryptKey = () => {
     let result = ''
+    let key = shiftDeKey
+    if (key > 95) {
+      key = key % 95
+    }
     for (let i = 0; i < shiftDeText.length; i++) {
       let char = shiftDeText.charCodeAt(i)
       console.log(char)
-      let temptResult = char - 32 - shiftDeKey + 95
+      let temptResult = char - 32 - key + 95
       if (temptResult < 0) {
         temptResult += 95
       }
       result += String.fromCharCode(temptResult % 95 + 32);
-      console.log(shiftDeKey)
     }
     setShiftDeResult(result)
     console.log(result.charCodeAt(0))
