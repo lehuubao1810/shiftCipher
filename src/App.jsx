@@ -32,17 +32,7 @@ function App() {
     let result = ''
     for (let i = 0; i < shiftEnText.length; i++) {
       let char = shiftEnText.charCodeAt(i)
-      console.log(char)
-      let temptEn = (char + shiftEnKey) % 127
-      if (temptEn < 32) {
-        result += String.fromCharCode(temptEn + 32)
-      } else {
-        result += String.fromCharCode(temptEn)
-      }
-      //
-      // let tempt = ((char + shiftEnKey) % 95 ) + 32
-      // console.log(tempt)
-      // console.log(`${i}: ${char} - ${shiftEnKey} - ${tempt} - ${String.fromCharCode(((char + shiftEnKey) + 32) % 127)} - ${result}`)
+      result += String.fromCharCode((char - 32 + shiftEnKey) % 95 + 32);
     }
     setShiftEnResult(result)
 
@@ -64,20 +54,14 @@ function App() {
     for (let i = 0; i < shiftDeText.length; i++) {
       let char = shiftDeText.charCodeAt(i)
       console.log(char)
-      let temptDe = (char - shiftDeKey) % 127
-  
-      if (temptDe < 0) {
-        temptDe += 127
+      let temptResult = char - 32 - shiftDeKey + 95
+      if (temptResult < 0) {
+        temptResult += 95
       }
-      if (temptDe < 32) {
-        result += String.fromCharCode(127 - (32 - temptDe))
-      } else {
-        result += String.fromCharCode(temptDe)
-      }
+      result += String.fromCharCode(temptResult % 95 + 32);
+      console.log(shiftDeKey)
     }
     setShiftDeResult(result)
-    // console.log(shiftDeKey)
-    // console.log(shiftDeText)
     console.log(result.charCodeAt(0))
   }
   // Don't have key
@@ -88,17 +72,12 @@ function App() {
       let result = ''
       for (let j = 0; j < shiftDeText.length; j++) {
         let char = shiftDeText.charCodeAt(j)
-        // result += String.fromCharCode((char - i) % 127)
-        let temptDe = (char - i) % 127
 
-        if (temptDe < 0) {
-          temptDe += 127
+        let temptResult = char - 32 - i + 95
+        if (temptResult < 0) {
+          temptResult += 95
         }
-        if (temptDe < 32) {
-          result += String.fromCharCode(127 - (32 - temptDe))
-        } else {
-          result += String.fromCharCode(temptDe)
-        }
+        result += String.fromCharCode(temptResult % 95 + 32);
       }
       all_results.push(
         {
@@ -118,13 +97,12 @@ function App() {
     }
     setAllDeResult(all_results)
     setOptDeResult(opt_results)
-    // console.log(all_results)
-    // console.log(opt_results)
   }
 
   const isOptimizeResult = (result) => {
-    // keep only a-z, A-Z, 0-9, space and .,?
-    const opt_result = result.replace(/[^a-eg-ik-vx-yA-EG-IK-V-X-Y0-9 .,?]/g, '')
+    // keep only a-z, A-Z, 0-9, space and .,?@-()%!$#^&*+=
+    const opt_result = result.replace(/[^a-eg-ik-vx-yA-EG-IK-VX-Y0-9 .,?@-()%!$#^&*+=]/g, '')
+    // const opt_result = result.replace(/[^a-eg-ik-vx-yA-EG-IK-VX-Y0-9 .,?@]/g, '')
     if (opt_result.length < shiftDeText.length) {
       return false
     }
