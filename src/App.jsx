@@ -100,8 +100,8 @@ function App() {
   }
 
   const isOptimizeResult = (result) => {
-    // keep only a-z, A-Z, 0-9, space and .,?@-()%!$#^&*+=
-    const opt_result = result.replace(/[^a-eg-ik-vx-yA-EG-IK-VX-Y0-9 .,?@-()%!#^&*+=-]/g, '')
+    // keep only a-eg-ik-vx-yA-EG-IK-VX-Y0-9 .,?@=()%!^&*+#-
+    const opt_result = result.replace(/[^a-eg-ik-vx-yA-EG-IK-VX-Y0-9 .,?@=()%!^&*+#-]/g, '');
     // const opt_result = result.replace(/[^a-eg-ik-vx-yA-EG-IK-VX-Y0-9 .,?@]/g, '')
     if (opt_result.length < shiftDeText.length) {
       return false
